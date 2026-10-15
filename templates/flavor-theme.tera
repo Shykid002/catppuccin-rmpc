@@ -11,8 +11,6 @@ whiskers:
 #![enable(unwrap_variant_newtypes)]
 (
     default_album_art_path: None,
-    show_song_table_header: false,
-    draw_borders: false,
     format_tag_separator: " | ",
     browser_column_widths: [20, 38, 42],
     background_color: "#{{palette.base.hex}}",
@@ -22,23 +20,18 @@ whiskers:
     modal_backdrop: false,
     preview_label_style: (fg: "#{{palette.yellow.hex}}"),
     preview_metadata_group_style: (fg: "#{{palette.yellow.hex}}", modifiers: "Bold"),
-    tab_bar: (
-        active_style: (fg: "#{{palette.base.hex}}", bg: "#{{palette.mauve.hex}}", modifiers: "Bold"),
-        inactive_style: (fg: "#{{palette.text.hex}}", bg: "#{{palette.base.hex}}"),
-    ),
     highlighted_item_style: (fg: "#{{palette.mauve.hex}}", modifiers: "Bold"),
-    current_item_style: (bg: "#{{palette.surface1.hex}}", modifiers: "Bold"),
+    current_item_style: (bg: "#{{palette.surface1.hex}}", fg: "#{{palette.mauve.hex}}", modifiers: "Bold"),
     borders_style: (fg: "#{{palette.overlay2.hex}}"),
-    highlight_border_style: (fg: "#{{palette.text.hex}}"),
+    highlight_border_style: (fg: "#{{palette.overlay2.hex}}"),
     symbols: (
         song: "󰝚",
         dir: "󰀥",
         playlist: "󰲸",
-        marker: "M",
+        marker: "󰐃",
         ellipsis: "...",
-        song_style: None,
-        dir_style: None,
-        playlist_style: None,
+        song_style: (fg: "#{{palette.overlay2.hex}}"),
+        dir_style:(fg: "#{{palette.yellow.hex}}"),
     ),
     level_styles: (
         info: (fg: "#{{palette.mauve.hex}}", bg: "#{{palette.base.hex}}"),
@@ -47,122 +40,23 @@ whiskers:
         debug: (fg: "#{{palette.green.hex}}", bg: "#{{palette.base.hex}}"),
         trace: (fg: "#{{palette.lavender.hex}}", bg: "#{{palette.base.hex}}"),
     ),
-  progress_bar: (
-        symbols: ["", "█", "", "█", ""],
+    progress_bar: (
+        symbols: ["█", "█", "█", " ", "█"],
         track_style: (fg: "#{{palette.mantle.hex}}"),
         elapsed_style: (fg: "#{{palette.mauve.hex}}"),
-        thumb_style: (fg: "#{{palette.mauve.hex}}", bg: "#{{palette.mantle.hex}}"),
-        use_track_when_empty: false,
-    ), 
+        thumb_style: (fg: "#{{palette.mauve.hex}}"),
+        use_track_when_empty: true,
+    ),
     scrollbar: (
-        symbols: ["│", "█", "", "󰅀"],
-        track_style: (fg: "#{{palette.mauve.hex}}"),
-        ends_style: (fg: "#{{palette.base.hex}}"),
+        symbols: ["│", "█", "▲", "▼"],
         thumb_style: (fg: "#{{palette.mauve.hex}}"),
     ),
-    song_table_format: [
-        (
-            prop: (kind: Property(Artist), style: (fg: "#{{palette.peach.hex}}", modifiers: "Bold"),
-                default: (kind: Text("Unknown"), style: (fg: "#{{palette.peach.hex}}", modifiers: "Bold"))
-            ),
-            width: "20%",
-	    alignment: Right,
-        ),
-        (
-            prop: (kind: Text("-"), style: (fg: "#{{palette.text.hex}}"), default: (kind: Text("Unknown"))),
-            width: "1",
-            alignment: Center,
-        ),
-	(
-            prop: (kind: Property(Title), style: (fg: "#{{palette.yellow.hex}}", modifiers: "Bold"),
-                default: (kind: Text("Unknown"), style: (fg: "#{{palette.yellow.hex}}", modifiers: "Bold"))
-            ),
-            width: "80%",
-	    alignment: Left
-        ),
-    ],
-
-    components: {},
-    layout: Split(
-        direction: Vertical,
-        panes: [
-            (
-                pane: Pane(Tabs),
-                size: "1",
-            ),
-            	    (
-		size: "1",
-		style: (align: Right),
-		pane: Split(
-		
-		direction: Horizontal,
-		panes: [
-  (size: "100%", pane: Pane(Property(content: [
-  (kind: Text(" ("), style: (fg: "#{{palette.text.hex}}", modififiers: "Bold")),
-
-    (kind: Property(Status(RepeatV2(on_label: "", off_label: "",
-				 on_style: (fg: "#{{palette.green.hex}}", modifiers: "Bold"),
-				 off_style: (fg: "#{{palette.surface2.hex}}", modifiers: "Bold"))))),
-
-	(kind: Text(" | "), style: (fg: "#{{palette.text.hex}}", modififiers: "Bold")),
-
-    (kind: Property(Status(RandomV2(on_label: "", off_label: "",
-				 on_style: (fg: "#{{palette.pink.hex}}", modifiers: "Bold"),
-				 off_style: (fg: "#{{palette.surface2.hex}}", modifiers: "Bold"))))), 
-
-    (kind: Text(" | "), style: (fg: "#{{palette.text.hex}}", modififiers: "Bold")),
-
-
-    (kind: Property(Status(ConsumeV2(on_label: "󰮯",off_label: "󰮯",oneshot_label: "󰮯 󰇊",on_style: (fg: "#{{palette.yellow.hex}}", modifiers: "Bold"),off_style: (fg: "#{{palette.surface2.hex}}", modifiers: "Bold"),oneshot_style: (fg: "#{{palette.blue.hex}}", modifiers: "Bold"),)))),
-
-    (kind: Text(" | "), style: (fg: "#cdd6f4", modififiers: "Bold")),
-
-	(kind: Property(Status(SingleV2(on_label: "󰎤", off_label: "󰎦", oneshot_label: "󰇊", off_oneshot_label: "󱅊", on_style: (fg: "#{{palette.lavender.hex}}", modifiers: "Bold"), off_style: (fg: "#{{palette.surface2.hex}}", modifiers: "Bold"), oneshot_style: (fg: "#{{palette.yellow.hex}}", modifiers: "Bold"))))),
-
-	  (kind: Text(" )"), style: (fg: "#{{palette.text.hex}}", modififiers: "Bold")),
-
-
-  ], style: (fg: "#{{palette.text.hex}}"), align: Right))),
-		]
-
-		),
-
-	    ),
-            (
-                pane: Pane(TabContent),
-                size: "100%",
-            ),
-	    (
-	    	size: "1",
-		pane: Split(
-		direction: Horizontal,
-		panes: [
-		(size: "2", pane: Pane(Property(content: [(kind: Text("󰕾 ")),], style: (fg: "#{{palette.text.hex}}"), align: Left))),
-		(size: "100%", pane: Pane(Volume(
-		kind: Slider(
-		symbols: (
-			filled: "─",
-	                thumb: "●",
-			track: "─",
-		),
-		track_style: (fg: "#{{palette.surface2.hex}}"),
-		filled_style: (fg: "#{{palette.mauve.hex}}"),
-		thumb_style: (fg: "#{{palette.surface2.hex}}"),
-
-		)
-
-		))),
-		(size: "3", pane: Pane(Property(content: [(kind: Property(Status(Volume)), style: (fg: "#{{palette.text.hex}}"))], align: Right))),
-		(size: "1", pane: Pane(Property(content: [(kind: Text("%")),], style: (fg: "#{{palette.text.hex}}"), align: Left))),
-		]
-		)
-
-	    ),
-            (
-                pane: Pane(ProgressBar),
-                size: "1",
-            ),
-        ],
+    tab_bar: (
+        active_style: (fg: "#{{palette.base.hex}}", bg: "#{{palette.mauve.hex}}", modifiers: "Bold"),
+	inactive_style: (fg: "#{{palette.text.hex}}", bg: "#{{palette.base.hex}}")
+    ),
+    lyrics: (
+        timestamp: false
     ),
     browser_song_format: [
         (
@@ -180,33 +74,224 @@ whiskers:
             default: (kind: Property(Filename))
         ),
     ],
+    song_table_format: [
+        (
+            prop: (kind: Property(Artist),
+                default: (kind: Text("Unknown")),
+		style: (fg: "#{{palette.peach.hex}}"),
+		align: right
+            ),
+            width: "20%",
+        ),
+	(
+	    prop: (kind: Text(" - "),
+	    style: (fg: "#{{palette.text.hex}}")
+	    ),
+            width: "3",
+	),
+        (
+            prop: (kind: Property(Title),
+                default: (kind: Text("Unknown")),
+		style: (fg: "#{{palette.yellow.hex}}"),
+            ),
+            width: "65%",
+        ),
+        (
+            prop: (kind: Property(Duration),
+	    	style: (fg: "#{{palette.text.hex}}"),
+                default: (kind: Text("-"))
+            ),
+            width: "15%",
+            alignment: Right,
+        ),
+    ],
+    layout: Split(
+        direction: Vertical,
+        panes: [
 
+	    (pane: Split(
+		direction: Horizontal,
+		panes: [
+			(
+			pane: Pane(Tabs),
+			align: Center,
+			borders: "ALL",
+                        border_symbols: Inherited(parent: Rounded, top_right: "┬", bottom_right: "┴"),
+			size: "100%"
+
+			),
+
+			(
+			    size: "20",
+			    borders: "RIGHT | TOP | BOTTOM",
+			    border_symbols: Rounded,
+			    pane: Pane(Property(content: [
+				(kind: Text("("), style: (fg: "#{{palette.text.hex}}", modifiers: "Bold")),
+				(kind: Property(Status(RepeatV2(
+				    on_label: "",
+				    off_label: "",
+				    on_style: (fg: "#{{palette.green.hex}}", modifiers: "Bold"),
+				    off_style: (fg: "#{{palette.surface2.hex}}", modifiers: "Bold"),
+				)))),
+				(kind: Text(" | "), style: (fg: "#{{palette.text.hex}}", modifiers: "Bold")),
+				(kind: Property(Status(RandomV2(
+				    on_label: "",
+				    off_label: "",
+				    on_style: (fg: "#{{palette.pink.hex}}", modifiers: "Bold"),
+				    off_style: (fg: "#{{palette.surface2.hex}}", modifiers: "Bold"),
+				)))),
+				(kind: Text(" | "), style: (fg: "#{{palette.text.hex}}", modifiers: "Bold")),
+				(kind: Property(Status(ConsumeV2(
+				    on_label: "󰮯",
+				    off_label: "󰮯",
+				    oneshot_label: "󰮯 󰇊",
+				    on_style: (fg: "#{{palette.yellow.hex}}", modifiers: "Bold"),
+				    off_style: (fg: "#{{palette.surface2.hex}}", modifiers: "Bold"),
+				    oneshot_style: (fg: "#{{palette.blue.hex}}", modifiers: "Bold"),
+				)))),
+				(kind: Text(" | "), style: (fg: "#{{palette.text.hex}}", modifiers: "Bold")),
+				(kind: Property(Status(SingleV2(
+				    on_label: "󰎤 ",
+				    off_label: "󰎦 ",
+				    oneshot_label: "󰇊 ",
+				    on_style: (fg: "#{{palette.lavender.hex}}", modifiers: "Bold"),
+				    off_style: (fg: "#{{palette.surface2.hex}}", modifiers: "Bold"),
+				    oneshot_style: (fg: "#{{palette.yellow.hex}}", modifiers: "Bold"),
+				)))),
+				(kind: Text(")"), style: (fg: "#{{palette.text.hex}}", modifiers: "Bold")),
+				],
+				align: Center
+			    ))
+                ),
+		]
+	    ), size: "3"),
+            (
+                pane: Pane(TabContent),
+                size: "100%",
+            ),
+	    (pane: Component("volume"), size: "1"),
+            (
+                size: "3",
+                pane: Split(
+                    direction: Horizontal,
+                    panes: [
+                        (
+                            size: "12",
+                            borders: "ALL",
+                            border_symbols: Inherited(parent: Rounded, top_right: "┬", bottom_right: "┴"),
+                            pane: Component("input_mode")
+                        ),
+                        (
+                            size: "100%",
+                            borders: "TOP | BOTTOM | RIGHT",
+                            border_symbols: Rounded,
+                            border_title: [(kind: Text(" ")), (kind: Property(Status(QueueLength())), style: (fg: "#{{palette.text.hex}}")), (kind: Text(" songs / "), style: (fg: "#{{palette.text.hex}}")), (kind: Property(Status(QueueTimeTotal())), style: (fg: "#{{palette.text.hex}}")), (kind: Text(" total time "), style: (fg: "#{{palette.text.hex}}"))],
+                            border_title_alignment: Right,
+                            pane: Component("progress_bar"),
+                        ),
+                    ]
+                ),
+            ),
+        ],
+    ),
+    components: {
+	"album": Pane(Property(
+	content: [
+		(kind: Property(Song(Album)), style: (fg: "#{{palette.text.hex}}", modifiers: "Bold"),
+		default: (kind: Text("Unknown"), style: (fg: "#{{palette.text.hex}}", modifiers: "Bold"))),
+	], align: Center
+	)),
+	"elapsed": Pane(Property(
+	content: [
+		(kind: Text("("), style: (fg : "#{{palette.text.hex}}", modifiers: "Bold") ),
+		(kind: Property(Status(Elapsed)), style: (fg: "#{{palette.text.hex}}", modifiers: "Bold")),
+		(kind: Text(" / "), style: (fg : "#{{palette.text.hex}}", modifiers: "Bold") ),
+		(kind: Property(Status(Duration)), style: (fg: "#{{palette.text.hex}}", modifiers: "Bold")),
+		(kind: Text(")"), style: (fg : "#{{palette.text.hex}}", modifiers: "Bold") ),
+	], align: Center
+	)),
+        "title": Pane(Property(
+            content: [
+                (kind: Property(Song(Title)), style: (fg: "#{{palette.text.hex}}", modifiers: "Bold"),
+                    default: (kind: Text("No Song"), style: (fg: "#{{palette.text.hex}}", modifiers: "Bold"))),
+            ], align: Center, scroll_speed: 1
+        )),
+        "volume": Split(
+            direction: Horizontal,
+            panes: [
+                (size: "1", pane: Pane(Property(content: [(kind: Text(""))]))),
+                (size: "100%", pane: Pane(Volume(kind: Slider(symbols: (filled: "─", thumb: "●", track: "─"), track_style: (fg: "#{{palette.surface2.hex}}"), filled_style: (fg: "#{{palette.mauve.hex}}"), thumb_style: (fg: "#{{palette.surface2.hex}}"))))),
+                (size: "3", pane: Pane(Property(content: [(kind: Property(Status(Volume)), style: (fg: "#{{palette.text.hex}}"))], align: Right))),
+                (size: "2", pane: Pane(Property(content: [(kind: Text("%"), style: (fg: "#{{palette.text.hex}}"))]))),
+            ]
+        ),
+        "artist_and_title": Pane(Property(
+            content: [
+		(kind: Property(Song(Artist)), style: (fg: "#{{palette.peach.hex}}", modifiers: "Bold"),
+		 default: (kind: Text("Unknown"), style: (fg: "#{{palette.peach.hex}}", modifiers: "Bold"))
+		),
+		(kind: Text(" - "), style: (fg : "#{{palette.text.hex}}", modifiers: "Bold") ),
+		(kind: Property(Song(Title)), style: (fg: "#{{palette.yellow.hex}}", modifiers: "Bold"),
+		default: (kind: Text("Unknown"), style: (fg: "#{{palette.yellow.hex}}", modifiers: "Bold"))),
+            ], align: Center, scroll_speed: 1
+        )),
+        "input_mode": Pane(Property(
+            content: [
+                (kind: Transform(Replace(content: (kind: Property(Status(InputMode()))), replacements: [
+                    (match: "Normal", replace: (kind: Text(" NORMAL "), style: (fg: "#{{palette.base.hex}}", bg: "#{{palette.blue.hex}}", modifiers: "Bold"))),
+                    (match: "Insert", replace: (kind: Text(" INSERT "), style: (fg: "#{{palette.base.hex}}", bg: "#{{palette.green.hex}}", modifiers: "Bold"))),
+                ])))
+            ], align: Center
+        )),
+        "progress_bar": Split(
+            direction: Horizontal,
+            panes: [
+                (
+                    size: "1",
+                    pane: Pane(Empty())
+                ),
+                (
+                    size: "100%",
+                    pane: Pane(ProgressBar)
+                ),
+                (
+                    size: "1",
+                    pane: Pane(Empty())
+                ),
+            ]
+        ),
+
+	"sidebar": Split(
+	    direction: Vertical,
+	    panes: [
+	        
+                (
+                    size: "100%",
+                    pane: Pane(AlbumArt)
+                ),
+		(size: "1", pane: Component("album")),
+		(size: "1", pane: Component("artist_and_title")),
+		(size: "1", pane: Component("elapsed")),
+	    ]
+	),
+
+	"sidebar_no_lyrics": Split(
+	   direction: Vertical,
+	   panes: [
+	   	(pane: Component("sidebar"), size: "100%"),
+		(pane: Pane(Empty()), size: "3")
+	   ]
+	)
+
+    },
 
 cava: (
-    // symbols that will be used to draw the bar in the visualiser, in ascending order of
-    // fill fraction
     bar_symbols: ['▁', '▂', '▃', '▄', '▅', '▆', '▇', '█'],
-    // similar to bar_symbols but these are used for the top-down rendering, meaning for orientation
-    // "Horizontal" and "Top"
     inverted_bar_symbols: ['▔', '🮂', '🮃', '▀', '🮄', '🮅', '🮆', '█'],
 
-    //bg_color: "", // background color, defaults to rmpc's bg color if not provided
-    bar_width: 1, // width of a single bar in columns
-    bar_spacing: 1, // free space between bars in columns
-
-    // Possible values are "Top", "Bottom" and "Horizontal". Top makes the bars go from top to
-    // bottom, "Bottom" is from bottom up, and "Horizontal" is split in the middle with bars going
-    // both down and up from there.
-    // Using non-default symbols with "Top" and "Horizontal" may produce undesired output.
+    bar_width: 1,
+    bar_spacing: 1,
     orientation: Horizontal,
-
-    // Colors can be configured in three different ways: a single color, different colors
-    // per row and a gradient. You can use the same colors as everywhere else. Only specify
-    // one of these:
-
-    // Every bar symbol will be red
-    //bar_color: Single("#{{palette.mauve.hex}}"),
-
     bar_color: Gradient({
 
             12: "#{{palette.teal.hex}}",
@@ -219,7 +304,5 @@ cava: (
             100: "#{{palette.red.hex}}",    
     }),
   ),
-    lyrics: (
-        timestamp: false
-    )
+)
 )
